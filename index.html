@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Pokemon</title>
+
+    <script src="js/script.js"></script>
+
   </head>
   <body>
     <h1>Pokemon</h1>
@@ -16,8 +19,8 @@
       <label for="blastoise">Blastoise</label>
       <input type="radio" name="eleccion" id="blastoise"/>
 
-      <label for="venasaur">Venasaur</label>
-      <input type="radio" name="eleccion" id="venasaur"/>
+      <label for="venusaur">Venusaur</label>
+      <input type="radio" name="eleccion" id="venusaur"/>
 
       <label for="volcanion">Volcanion</label>
       <input type="radio" name="eleccion" id="volcanion"/>
@@ -29,19 +32,19 @@
       <input type="radio" name="eleccion" id="camerupt"/>
 
       
-      <button> Seleccionar ⚈</button>
+      <button id="boton-seleccionar"> Seleccionar ⚈</button>
     </section>
     <section id="eligeAtaque">
       <h2>Elige tu ataque</h2>
 
       <!-- Medidor de vida de los pokemon-->
-      <p>Tu pokemon tiene <span>100%</span> de vida</p>
-      <p>El pokemon rival tiene <span>100%</span> de vida</p>
+      <p>Tu pokemon <span id="pokemonJugador"></span> tiene <span>100%</span> de vida</p>
+      <p>El pokemon rival <span id="pokemonEnemigo"></span>tiene <span>100%</span> de vida</p>
 
       <p>
-        <button>🔥</button>
-        <button>💧</button>
-        <button>🌱</button>
+        <button id="boton-ataque-fuego">🔥</button>
+        <button id="boton-ataque-agua">💧</button>
+        <button id="boton-ataque-planta">🌱</button>
       </p>
     </section>
 
@@ -51,7 +54,7 @@
 
     <section id="reiniciar">
       <p>
-        <button>Reiniciar ⟳</button>
+        <button id="boton-reiniciar">Reiniciar ⟳</button>
       </p>
     </section>
 
