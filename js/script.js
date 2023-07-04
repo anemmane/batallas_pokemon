@@ -1,7 +1,9 @@
 let ataqueJugador // variable global
-let ataqueEnemigo// variable global
+let ataqueEnemigo // variable global
 let pokemonJugador
 let pokemonEnemigo
+let contadorJugador = 3
+let contadorEnemigo = 3
 
 function iniciarJuego() {
   //accion para escuchar el boton de elegir pokemon. Primero creamos la variable    y le decimos que encuentre dentro del documento el elemento con determinado ID
@@ -82,17 +84,55 @@ function ataqueEnemigoAccion(){
   } else if (ataqueAleatorio == 3){
     ataqueEnemigo = 'PLANTA'
   }
-
-  crearMensajeAtaques()
+  resultadoCombate()
 }
 
-function crearMensajeAtaques(){
+
+function resultadoCombate(){
+  let spanVidasJugador = document.getElementById('vidas-jugador')
+  let spanVidasEnemigo = document.getElementById('vidas-enemigo')
+
+  
+  if (ataqueJugador == ataqueEnemigo){
+    resultadoAtaque = 'Empate'
+  } else if ((ataqueJugador == 'FUEGO' && ataqueEnemigo == 'PLANTA') || (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') || (ataqueJugador == 'PLANTA' && ataqueEnemigo == 'AGUA')){
+    crearMensajeAtaques('Ganaste')
+    contadorEnemigo = contadorEnemigo - 1
+    spanVidasEnemigo.innerHTML = contadorEnemigo
+  } else {
+    crearMensajeAtaques('Perdiste')
+    contadorJugador = contadorJugador - 1
+    spanVidasJugador.innerHTML = contadorJugador
+  }
+
+  contadorVidas()
+}
+
+function contadorVidas(){
+  if (contadorEnemigo == 0){
+    crearMensajeFinal("El enemigo se ha debilitado. Ganaste la partida")
+  } else if (contadorJugador == 0){
+    crearMensajeFinal("Has sido debilitado. Perdiste la partida")
+  }
+}
+
+function crearMensajeAtaques(resultadoAtaque){
   let seccionMensajes = document.getElementById('mensajes')
   
   let parrafo = document.createElement('p') //crea un nuevo elemento HTML
-  parrafo.innerHTML = pokemonJugador + ' atacó con ' + ataqueJugador + ', ' + pokemonEnemigo + ' atacó con ' + ataqueEnemigo
+  parrafo.innerHTML = pokemonJugador + ' atacó con ' + ataqueJugador + ', ' + pokemonEnemigo + ' atacó con ' + ataqueEnemigo + ', ' + resultadoAtaque
   seccionMensajes.appendChild(parrafo) //integra el elemento creado en la sección elegida por ID
 }
+
+function crearMensajeFinal(resultadoFinal){
+  let seccionMensajes = document.getElementById('mensajes')
+  
+  let parrafo = document.createElement('p') //crea un nuevo elemento HTML
+  parrafo.innerHTML = resultadoFinal
+  seccionMensajes.appendChild(parrafo) //integra el elemento creado en la sección elegida por ID
+  
+}
+
 
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
