@@ -6,6 +6,11 @@ let contadorJugador = 3
 let contadorEnemigo = 3
 
 function iniciarJuego() {
+  let activarSeccionAtaque = document.getElementById('eligeAtaque')
+  activarSeccionAtaque.style.display = 'none'
+
+  let activarSeccionReiniciar = document.getElementById('reiniciar')
+  activarSeccionReiniciar.style.display = 'none'
   //accion para escuchar el boton de elegir pokemon. Primero creamos la variable    y le decimos que encuentre dentro del documento el elemento con determinado ID
 
   let botonElegirPokemon = document.getElementById('boton-seleccionar') //a la variable le decimos que escuche el event click y llame la funcion seleccionarPokemon
@@ -19,9 +24,19 @@ function iniciarJuego() {
 
   let botonAtaquePlanta = document.getElementById('boton-ataque-planta')
   botonAtaquePlanta.addEventListener('click', ataquePlanta)
+
+  let botonReiniciar = document.getElementById('boton-reiniciar')
+  botonReiniciar.addEventListener('click', reiniciarJuego)
 }
 
 function seleccionarPokemon() {
+
+  let activarSeccionPokemon = document.getElementById('eligePokemon') 
+  activarSeccionPokemon.style.display = 'none'
+
+  let activarSeccionataque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
+  activarSeccionataque.style.display = 'block'
+  
   let inputCharizard = document.getElementById('charizard')
   let inputBlastoise = document.getElementById('blastoise')
   let inputVenusaur = document.getElementById('venusaur')
@@ -94,7 +109,7 @@ function resultadoCombate(){
 
   
   if (ataqueJugador == ataqueEnemigo){
-    resultadoAtaque = 'Empate'
+    crearMensajeAtaques('Empate')
   } else if ((ataqueJugador == 'FUEGO' && ataqueEnemigo == 'PLANTA') || (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') || (ataqueJugador == 'PLANTA' && ataqueEnemigo == 'AGUA')){
     crearMensajeAtaques('Ganaste')
     contadorEnemigo = contadorEnemigo - 1
@@ -110,9 +125,9 @@ function resultadoCombate(){
 
 function contadorVidas(){
   if (contadorEnemigo == 0){
-    crearMensajeFinal("El enemigo se ha debilitado. Ganaste la partida")
+    crearMensajeFinal('El enemigo se ha debilitado. Ganaste la partida')
   } else if (contadorJugador == 0){
-    crearMensajeFinal("Has sido debilitado. Perdiste la partida")
+    crearMensajeFinal('Has sido debilitado. Perdiste la partida')
   }
 }
 
@@ -130,7 +145,23 @@ function crearMensajeFinal(resultadoFinal){
   let parrafo = document.createElement('p') //crea un nuevo elemento HTML
   parrafo.innerHTML = resultadoFinal
   seccionMensajes.appendChild(parrafo) //integra el elemento creado en la sección elegida por ID
+
+  let botonAtaqueFuego = document.getElementById('boton-ataque-fuego') //encontramos el elemento cuando se emite el mensaje final
+  botonAtaqueFuego.disabled = true //la propiedad del boton se cambia a disabled
+
+  let botonAtaqueAgua = document.getElementById('boton-ataque-agua')
+  botonAtaqueAgua.disabled = true
+
+  let botonAtaquePlanta = document.getElementById('boton-ataque-planta')
+  botonAtaquePlanta.disabled = true
+
+  let activarSeccionReiniciar = document.getElementById('reiniciar')
+  activarSeccionReiniciar.style.display = 'block'
   
+}
+
+function reiniciarJuego(){
+  location.reload()
 }
 
 
