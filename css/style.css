@@ -2,3 +2,25 @@ html {
   height: 100%;
   width: 100%;
 }
+
+/* hay selectores de tipo (con etiquetas, cambian todas las etiquetas) de clase (class . cambia todo lo que tenga la misma clase) y de id (identificador # solo un elemento de html puede tener cierto id) */
+
+#eligePokemon{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tarjeta-pokemon{
+  width: 100px;
+  height: 100px;
+  background: yellow;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 10px;
+}
+
+input{
+  display: none;
+}
