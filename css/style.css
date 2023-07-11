@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Comme&display=swap');
+
+body {
+  font-family: 'Comme', sans-serif;
+  background-image: url('https://dylanoke.files.wordpress.com/2021/02/unova_route_3_anime.png?w=1024')
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -5,22 +12,89 @@ html {
 
 /* hay selectores de tipo (con etiquetas, cambian todas las etiquetas) de clase (class . cambia todo lo que tenga la misma clase) y de id (identificador # solo un elemento de html puede tener cierto id) */
 
-#eligePokemon{
+#eligePokemon {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.tarjeta-pokemon{
-  width: 100px;
-  height: 100px;
-  background: yellow;
-  padding: 10px;
-  box-sizing: border-box;
-  margin: 10px;
+.titulo {
+  color: white;
+  font-size: 64px;
 }
 
-input{
+.subtitulo {
+  color: white;
+}
+
+.tarjeta-contenedor {
+  display: flex;
+  gap: 10px;
+  /*espaciado entre elementos */
+}
+
+.tarjeta-pokemon {
+  width: 180px;
+  height: 100px;
+  background: darkolivegreen;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  /*ayuda a colocar un elemento al lado de otro*/
+  color: white;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.tarjeta-pokemon img {
+  width: 80px;
+}
+
+#boton-seleccionar {
+  border-radius: 20px;
+  width: 180px;
+  height: 40px;
+  background: transparent 50%;
+  border: 3px solid white;
+  color: white;
+  margin: 30px 0px 0px 0px;
+}
+
+input {
   display: none;
+}
+
+#eligeAtaque {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boton-ataque {
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border-color: transparent;
+  width: 100px;
+  height: 100px;
+  color: white;
+  font-size: 46px;
+}
+
+#mensajes {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 280px;
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#boton-reiniciar {
+  border: transparent;
+  color: green;
 }

@@ -35,7 +35,7 @@ function seleccionarPokemon() {
   activarSeccionPokemon.style.display = 'none'
 
   let activarSeccionataque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
-  activarSeccionataque.style.display = 'block'
+  activarSeccionataque.style.display = 'flex'
   
   let inputCharizard = document.getElementById('charizard')
   let inputBlastoise = document.getElementById('blastoise')
@@ -132,19 +132,25 @@ function contadorVidas(){
 }
 
 function crearMensajeAtaques(resultadoAtaque){
-  let seccionMensajes = document.getElementById('mensajes')
+  let seccionMensajes = document.getElementById('resultado')
+  let ataquesDelJugador = document.getElementById('ataques-del-jugador')
+  let ataquesDelEnemigo = document.getElementById('ataques-del-enemigo')
   
-  let parrafo = document.createElement('p') //crea un nuevo elemento HTML
-  parrafo.innerHTML = pokemonJugador + ' atacó con ' + ataqueJugador + ', ' + pokemonEnemigo + ' atacó con ' + ataqueEnemigo + ', ' + resultadoAtaque
-  seccionMensajes.appendChild(parrafo) //integra el elemento creado en la sección elegida por ID
+  let nuevoAtaqueJugador = document.createElement('p')
+  let nuevoAtaqueEnemigo = document.createElement('p')
+  
+  seccionMensajes.innerHTML = resultadoAtaque
+  nuevoAtaqueJugador.innerHTML = pokemonJugador + ' atacó con ' + ataqueJugador 
+  nuevoAtaqueEnemigo.innerHTML = pokemonEnemigo + ' atacó con ' + ataqueEnemigo
+  
+  ataquesDelJugador.appendChild(nuevoAtaqueJugador) //integra el elemento creado en la sección elegida por ID
+  ataquesDelEnemigo.appendChild(nuevoAtaqueEnemigo)
 }
 
 function crearMensajeFinal(resultadoFinal){
-  let seccionMensajes = document.getElementById('mensajes')
+  let seccionMensajes = document.getElementById('resultado')
   
-  let parrafo = document.createElement('p') //crea un nuevo elemento HTML
-  parrafo.innerHTML = resultadoFinal
-  seccionMensajes.appendChild(parrafo) //integra el elemento creado en la sección elegida por ID
+  seccionMensajes.innerHTML = resultadoFinal
 
   let botonAtaqueFuego = document.getElementById('boton-ataque-fuego') //encontramos el elemento cuando se emite el mensaje final
   botonAtaqueFuego.disabled = true //la propiedad del boton se cambia a disabled
