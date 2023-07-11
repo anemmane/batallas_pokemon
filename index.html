@@ -17,24 +17,23 @@
     <h2 class="subtitulo">Elige un pokemon</h2>
 
     <div class="tarjeta-contenedor">
+      <input type="radio" name="eleccion" id="charizard" />
       <label class="tarjeta-pokemon" for="charizard">
         <p>Charizard</p>
         <img src="https://i.postimg.cc/8sHpDj40/char.png" alt="Charizard">
       </label>
-      <input type="radio" name="eleccion" id="charizard" />
 
+      <input type="radio" name="eleccion" id="blastoise" />
       <label class="tarjeta-pokemon" for="blastoise">
         <p>Blastoise</p>
         <img src="https://i.postimg.cc/30K3mT81/blas.png" alt="Charizard">
       </label>
-      <input type="radio" name="eleccion" id="blastoise" />
-
+      
+      <input type="radio" name="eleccion" id="venusaur" />
       <label class="tarjeta-pokemon" for="venusaur">
         <p>Venusaur</p>
         <img src="https://i.postimg.cc/c6ZxVQR3/venu.png" alt="Charizard">
       </label>
-      <input type="radio" name="eleccion" id="venusaur" />
-
     </div>
 
     <button id="boton-seleccionar"> Seleccionar ⚈</button>
@@ -45,7 +44,7 @@
 
     <h2 class="subtitulo">Elige tu ataque</h2>
 
-    <div>
+    <div class="tarjeta-ataques">
       <button id="boton-ataque-fuego" class="boton-ataque">🔥</button>
       <button id="boton-ataque-agua" class="boton-ataque">💧</button>
       <button id="boton-ataque-planta" class="boton-ataque">🌱</button>
@@ -60,12 +59,18 @@
       </div>
 
 
-    <div>
-      <div id="ataques-del-jugador"></div>
-      <div id="ataques-del-enemigo"></div>
-      <!-- Medidor de vida de los pokemon-->
-      <p>Tu pokemon <span id="pokemonJugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-      <p>El pokemon rival <span id="pokemonEnemigo"></span> tiene <span id="vidas-enemigo">3</span> vidas</p>
+    <div class="movimientos">
+      <div>
+        <p id="vidas-jugador">3</p>
+        <p id="pokemonJugador"></p>
+        <div id="ataques-del-jugador"></div>
+      </div>
+
+      <div>
+        <p id="vidas-enemigo">3</p>
+        <p id="pokemonEnemigo"></p>
+        <div id="ataques-del-enemigo"></div>
+      </div>
     </div>
   </section>
 

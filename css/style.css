@@ -28,7 +28,7 @@ html {
   color: white;
 }
 
-.tarjeta-contenedor {
+.tarjeta-contenedor, .tarjeta-ataques {
   display: flex;
   gap: 10px;
   /*espaciado entre elementos */
@@ -66,6 +66,10 @@ input {
   display: none;
 }
 
+input:checked + label{ /* el operador + aplica las características al elementos hermano*/
+  background-color: lightblue;
+}
+
 #eligeAtaque {
   display: flex;
   flex-direction: column;
@@ -97,4 +101,21 @@ input {
 #boton-reiniciar {
   border: transparent;
   color: green;
+}
+
+.movimientos {
+  display: grid;
+  grid-template-columns: 100px 100px;
+  text-align: center;
+  color: white;
+}
+
+@media (max-width: 360px){
+  .tarjeta-contenedor{
+    flex-direction: column;
+  }
+
+  .tarjeta-ataques{
+    flex-direction: column;
+  }
 }
