@@ -7,6 +7,7 @@ let pokemonJugador
 let pokemonEnemigo
 let contadorJugador = 3
 let contadorEnemigo = 3
+let opcionDePokemones
 
 //arreglos
 let pokemones = []
@@ -24,8 +25,6 @@ class Pokemon {
 let charizard = new Pokemon('Charizard', 'https://i.postimg.cc/8sHpDj40/char.png', 5)
 let blastoise = new Pokemon('Blastoise', 'https://i.postimg.cc/30K3mT81/blas.png', 5)
 let venusaur = new Pokemon('Venusaur', 'https://i.postimg.cc/c6ZxVQR3/venu.png', 5)
-
-pokemones.push(charizard, blastoise, venusaur)
 
 charizard.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
   {nombre: 'ascuas', id: 'boton-fuego'},
@@ -51,6 +50,9 @@ venusaur.ataques.push( //insertamos objetos literales en el atributo ataques del
   {nombre: 'ascuas', id: 'boton-fuego'},
 )
 
+pokemones.push(charizard, blastoise, venusaur)
+
+
 //console.log(pokemones) se ocupa si queremos ver un elemento, en este caso el arreglo
 
 
@@ -61,6 +63,20 @@ function iniciarJuego() {
   let activarSeccionReiniciar = document.getElementById('reiniciar')
   activarSeccionReiniciar.style.display = 'none'
   //accion para escuchar el boton de elegir pokemon. Primero creamos la variable    y le decimos que encuentre dentro del documento el elemento con determinado ID
+
+  let contenedorTarjetas = document.getElementById('contenedorTarjetas')
+
+  pokemones.forEach((pokemon) => {
+    opcionDePokemones = `
+    <input type="radio" name="eleccion" id=${pokemon.nombre} />
+      <label class="tarjeta-pokemon" for=${pokemon.nombre}>
+        <p>${pokemon.nombre}</p>
+        <img src=${pokemon.foto} alt=${pokemon.nombre}>
+      </label>`
+
+    contenedorTarjetas.innerHTML += opcionDePokemones
+  })
+  
 
   let botonElegirPokemon = document.getElementById('boton-seleccionar') //a la variable le decimos que escuche el event click y llame la funcion seleccionarPokemon
   botonElegirPokemon.addEventListener('click', seleccionarPokemon)
