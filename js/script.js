@@ -9,6 +9,10 @@ let contadorJugador = 3
 let contadorEnemigo = 3
 let opcionDePokemones
 
+let inputCharizard
+let inputBlastoise
+let inputVenusaur
+
 //arreglos
 let pokemones = []
 
@@ -75,6 +79,10 @@ function iniciarJuego() {
       </label>`
 
     contenedorTarjetas.innerHTML += opcionDePokemones
+
+    inputCharizard = document.getElementById('Charizard')
+    inputBlastoise = document.getElementById('Blastoise')
+    inputVenusaur = document.getElementById('Venusaur')
   })
   
 
@@ -102,9 +110,6 @@ function seleccionarPokemon() {
   let activarSeccionAtaque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
   activarSeccionAtaque.style.display = 'flex'
 
-  let inputCharizard = document.getElementById('charizard')
-  let inputBlastoise = document.getElementById('blastoise')
-  let inputVenusaur = document.getElementById('venusaur')
   pokemonJugador = document.getElementById('pokemonJugador')
 
   if (inputCharizard.checked) {
