@@ -28,7 +28,8 @@ html {
   color: white;
 }
 
-.tarjeta-contenedor, .tarjeta-ataques {
+.tarjeta-contenedor,
+.tarjeta-ataques {
   display: flex;
   gap: 10px;
   /*espaciado entre elementos */
@@ -66,7 +67,8 @@ input {
   display: none;
 }
 
-input:checked + label{ /* el operador + aplica las características al elementos hermano*/
+input:checked+label {
+  /* el operador + aplica las características al elementos hermano*/
   background-color: lightblue;
 }
 
@@ -110,12 +112,12 @@ input:checked + label{ /* el operador + aplica las características al elementos
   color: white;
 }
 
-@media (max-width: 360px){
-  .tarjeta-contenedor{
+@media (max-width: 360px) {
+  .tarjeta-contenedor {
     flex-direction: column;
   }
 
-  .tarjeta-ataques{
+  .tarjeta-ataques {
     flex-direction: column;
   }
 }

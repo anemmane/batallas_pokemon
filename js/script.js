@@ -1,9 +1,26 @@
-let ataqueJugador // variable global
-let ataqueEnemigo // variable global
+//variables de funcion
+
+// Variables GLOBALES
+let ataqueJugador
+let ataqueEnemigo
 let pokemonJugador
 let pokemonEnemigo
 let contadorJugador = 3
 let contadorEnemigo = 3
+
+//clases y objetos
+class Pokemon{
+  constructor(nombre, foto, vida) {
+    this.nombre = nombre
+    this.foto = foto
+    this.vida = vida
+  }
+}
+
+let charizard = new Pokemon('Charizard', 'https://i.postimg.cc/8sHpDj40/char.png', 5)
+
+console.log(charizard)
+
 
 function iniciarJuego() {
   let activarSeccionAtaque = document.getElementById('eligeAtaque')
@@ -31,86 +48,86 @@ function iniciarJuego() {
 
 function seleccionarPokemon() {
 
-  let activarSeccionPokemon = document.getElementById('eligePokemon') 
+  let activarSeccionPokemon = document.getElementById('eligePokemon')
   activarSeccionPokemon.style.display = 'none'
 
-  let activarSeccionataque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
-  activarSeccionataque.style.display = 'flex'
-  
+  let activarSeccionAtaque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
+  activarSeccionAtaque.style.display = 'flex'
+
   let inputCharizard = document.getElementById('charizard')
   let inputBlastoise = document.getElementById('blastoise')
   let inputVenusaur = document.getElementById('venusaur')
   pokemonJugador = document.getElementById('pokemonJugador')
-  
-  if (inputCharizard.checked){
+
+  if (inputCharizard.checked) {
     pokemonJugador.innerHTML = 'Charizard' //Primeros pasos de manipulación del DOM
     pokemonJugador = 'Charizard'
-  } else if (inputBlastoise.checked){
+  } else if (inputBlastoise.checked) {
     pokemonJugador.innerHTML = 'Blastoise' //modifica el Span con id pokemonJugador
     pokemonJugador = 'Blastoise'
-  } else if (inputVenusaur.checked){
-    pokemonJugador.innerHTML = 'Venusaur' 
+  } else if (inputVenusaur.checked) {
+    pokemonJugador.innerHTML = 'Venusaur'
     pokemonJugador = 'Venusaur'
-  } else{
+  } else {
     alert('Error en la seleccion')
   }
 
   seleccionarPokemonEnemigo()
 }
 
-function seleccionarPokemonEnemigo(){
-  let pokemonAleatorio = aleatorio(1,3)
+function seleccionarPokemonEnemigo() {
+  let pokemonAleatorio = aleatorio(1, 3)
   pokemonEnemigo = document.getElementById('pokemonEnemigo')
-  
-  if (pokemonAleatorio == 1){
+
+  if (pokemonAleatorio == 1) {
     pokemonEnemigo.innerHTML = 'Charizard'
     pokemonEnemigo = 'Charizard'
-  } else if (pokemonAleatorio == 2){
+  } else if (pokemonAleatorio == 2) {
     pokemonEnemigo.innerHTML = 'Blastoise'
     pokemonEnemigo = 'Blastoise'
-  } else if (pokemonAleatorio == 3){
+  } else if (pokemonAleatorio == 3) {
     pokemonEnemigo.innerHTML = 'Venusaur'
     pokemonEnemigo = 'Venusaur'
   }
 }
 
-function ataqueFuego(){
+function ataqueFuego() {
   ataqueJugador = 'FUEGO'
   ataqueEnemigoAccion()
 }
 
-function ataqueAgua(){
+function ataqueAgua() {
   ataqueJugador = 'AGUA'
   ataqueEnemigoAccion()
 }
 
-function ataquePlanta(){
+function ataquePlanta() {
   ataqueJugador = 'PLANTA'
   ataqueEnemigoAccion()
 }
 
-function ataqueEnemigoAccion(){
-  let ataqueAleatorio = aleatorio(1,3)
+function ataqueEnemigoAccion() {
+  let ataqueAleatorio = aleatorio(1, 3)
 
-  if (ataqueAleatorio == 1){
+  if (ataqueAleatorio == 1) {
     ataqueEnemigo = 'FUEGO'
-  } else if (ataqueAleatorio == 2){
+  } else if (ataqueAleatorio == 2) {
     ataqueEnemigo = 'AGUA'
-  } else if (ataqueAleatorio == 3){
+  } else if (ataqueAleatorio == 3) {
     ataqueEnemigo = 'PLANTA'
   }
   resultadoCombate()
 }
 
 
-function resultadoCombate(){
+function resultadoCombate() {
   let spanVidasJugador = document.getElementById('vidas-jugador')
   let spanVidasEnemigo = document.getElementById('vidas-enemigo')
 
-  
-  if (ataqueJugador == ataqueEnemigo){
+
+  if (ataqueJugador == ataqueEnemigo) {
     crearMensajeAtaques('Empate')
-  } else if ((ataqueJugador == 'FUEGO' && ataqueEnemigo == 'PLANTA') || (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') || (ataqueJugador == 'PLANTA' && ataqueEnemigo == 'AGUA')){
+  } else if ((ataqueJugador == 'FUEGO' && ataqueEnemigo == 'PLANTA') || (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') || (ataqueJugador == 'PLANTA' && ataqueEnemigo == 'AGUA')) {
     crearMensajeAtaques('Ganaste')
     contadorEnemigo = contadorEnemigo - 1
     spanVidasEnemigo.innerHTML = contadorEnemigo
@@ -123,33 +140,33 @@ function resultadoCombate(){
   contadorVidas()
 }
 
-function contadorVidas(){
-  if (contadorEnemigo == 0){
+function contadorVidas() {
+  if (contadorEnemigo == 0) {
     crearMensajeFinal('El enemigo se ha debilitado. Ganaste la partida')
-  } else if (contadorJugador == 0){
+  } else if (contadorJugador == 0) {
     crearMensajeFinal('Has sido debilitado. Perdiste la partida')
   }
 }
 
-function crearMensajeAtaques(resultadoAtaque){
+function crearMensajeAtaques(resultadoAtaque) {
   let seccionMensajes = document.getElementById('resultado')
   let ataquesDelJugador = document.getElementById('ataques-del-jugador')
   let ataquesDelEnemigo = document.getElementById('ataques-del-enemigo')
-  
+
   let nuevoAtaqueJugador = document.createElement('p')
   let nuevoAtaqueEnemigo = document.createElement('p')
-  
+
   seccionMensajes.innerHTML = resultadoAtaque
-  nuevoAtaqueJugador.innerHTML = pokemonJugador + ' atacó con ' + ataqueJugador 
+  nuevoAtaqueJugador.innerHTML = pokemonJugador + ' atacó con ' + ataqueJugador
   nuevoAtaqueEnemigo.innerHTML = pokemonEnemigo + ' atacó con ' + ataqueEnemigo
-  
+
   ataquesDelJugador.appendChild(nuevoAtaqueJugador) //integra el elemento creado en la sección elegida por ID
   ataquesDelEnemigo.appendChild(nuevoAtaqueEnemigo)
 }
 
-function crearMensajeFinal(resultadoFinal){
+function crearMensajeFinal(resultadoFinal) {
   let seccionMensajes = document.getElementById('resultado')
-  
+
   seccionMensajes.innerHTML = resultadoFinal
 
   let botonAtaqueFuego = document.getElementById('boton-ataque-fuego') //encontramos el elemento cuando se emite el mensaje final
@@ -163,16 +180,16 @@ function crearMensajeFinal(resultadoFinal){
 
   let activarSeccionReiniciar = document.getElementById('reiniciar')
   activarSeccionReiniciar.style.display = 'block'
-  
+
 }
 
-function reiniciarJuego(){
+function reiniciarJuego() {
   location.reload()
 }
 
 
 function aleatorio(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
+  return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 
