@@ -8,18 +8,50 @@ let pokemonEnemigo
 let contadorJugador = 3
 let contadorEnemigo = 3
 
+//arreglos
+let pokemones = []
+
 //clases y objetos
-class Pokemon{
+class Pokemon {
   constructor(nombre, foto, vida) {
     this.nombre = nombre
     this.foto = foto
     this.vida = vida
+    this.ataques = []
   }
 }
 
 let charizard = new Pokemon('Charizard', 'https://i.postimg.cc/8sHpDj40/char.png', 5)
+let blastoise = new Pokemon('Blastoise', 'https://i.postimg.cc/30K3mT81/blas.png', 5)
+let venusaur = new Pokemon('Venusaur', 'https://i.postimg.cc/c6ZxVQR3/venu.png', 5)
 
-console.log(charizard)
+pokemones.push(charizard, blastoise, venusaur)
+
+charizard.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
+  {nombre: 'ascuas', id: 'boton-fuego'},
+  {nombre: 'ascuas', id: 'boton-fuego'},
+  {nombre: 'ascuas', id: 'boton-fuego'},
+  {nombre: 'pistola agua', id: 'boton-agua'},
+  {nombre: 'latigo cepa', id: 'boton-planta'},
+)
+
+blastoise.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
+  {nombre: 'pistola agua', id: 'boton-agua'},
+  {nombre: 'pistola agua', id: 'boton-agua'},
+  {nombre: 'pistola agua', id: 'boton-agua'},
+  {nombre: 'ascuas', id: 'boton-fuego'},
+  {nombre: 'latigo cepa', id: 'boton-planta'},
+)
+
+venusaur.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
+  {nombre: 'latigo cepa', id: 'boton-planta'},
+  {nombre: 'latigo cepa', id: 'boton-planta'},
+  {nombre: 'latigo cepa', id: 'boton-planta'},
+  {nombre: 'pistola agua', id: 'boton-agua'},
+  {nombre: 'ascuas', id: 'boton-fuego'},
+)
+
+//console.log(pokemones) se ocupa si queremos ver un elemento, en este caso el arreglo
 
 
 function iniciarJuego() {
