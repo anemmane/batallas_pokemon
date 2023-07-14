@@ -8,10 +8,18 @@ let pokemonEnemigo
 let contadorJugador = 3
 let contadorEnemigo = 3
 let opcionDePokemones
+let opcionDeAtaques
+
+let ataquesPokemon
 
 let inputCharizard
 let inputBlastoise
 let inputVenusaur
+
+let botonAtaqueFuego 
+let botonAtaqueAgua 
+let botonAtaquePlanta 
+
 
 //arreglos
 let pokemones = []
@@ -31,27 +39,27 @@ let blastoise = new Pokemon('Blastoise', 'https://i.postimg.cc/30K3mT81/blas.png
 let venusaur = new Pokemon('Venusaur', 'https://i.postimg.cc/c6ZxVQR3/venu.png', 5)
 
 charizard.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
-  {nombre: 'ascuas', id: 'boton-fuego'},
-  {nombre: 'ascuas', id: 'boton-fuego'},
-  {nombre: 'ascuas', id: 'boton-fuego'},
-  {nombre: 'pistola agua', id: 'boton-agua'},
-  {nombre: 'latigo cepa', id: 'boton-planta'},
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '🌱', id: 'boton-ataque-planta' },
 )
 
 blastoise.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
-  {nombre: 'pistola agua', id: 'boton-agua'},
-  {nombre: 'pistola agua', id: 'boton-agua'},
-  {nombre: 'pistola agua', id: 'boton-agua'},
-  {nombre: 'ascuas', id: 'boton-fuego'},
-  {nombre: 'latigo cepa', id: 'boton-planta'},
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🌱', id: 'boton-ataque-planta' },
 )
 
 venusaur.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
-  {nombre: 'latigo cepa', id: 'boton-planta'},
-  {nombre: 'latigo cepa', id: 'boton-planta'},
-  {nombre: 'latigo cepa', id: 'boton-planta'},
-  {nombre: 'pistola agua', id: 'boton-agua'},
-  {nombre: 'ascuas', id: 'boton-fuego'},
+  { nombre: '🌱', id: 'boton-ataque-planta' },
+  { nombre: '🌱', id: 'boton-ataque-planta' },
+  { nombre: '🌱', id: 'boton-ataque-planta' },
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
 )
 
 pokemones.push(charizard, blastoise, venusaur)
@@ -72,7 +80,7 @@ function iniciarJuego() {
 
   pokemones.forEach((pokemon) => {
     opcionDePokemones = `
-    <input type="radio" name="eleccion" id=${pokemon.nombre} />
+    <input type="radio" name=${pokemon.nombre} id=${pokemon.nombre} />
       <label class="tarjeta-pokemon" for=${pokemon.nombre}>
         <p>${pokemon.nombre}</p>
         <img src=${pokemon.foto} alt=${pokemon.nombre}>
@@ -84,19 +92,13 @@ function iniciarJuego() {
     inputBlastoise = document.getElementById('Blastoise')
     inputVenusaur = document.getElementById('Venusaur')
   })
-  
+
 
   let botonElegirPokemon = document.getElementById('boton-seleccionar') //a la variable le decimos que escuche el event click y llame la funcion seleccionarPokemon
   botonElegirPokemon.addEventListener('click', seleccionarPokemon)
 
-  let botonAtaqueFuego = document.getElementById('boton-ataque-fuego')
-  botonAtaqueFuego.addEventListener('click', ataqueFuego)
 
-  let botonAtaqueAgua = document.getElementById('boton-ataque-agua')
-  botonAtaqueAgua.addEventListener('click', ataqueAgua)
-
-  let botonAtaquePlanta = document.getElementById('boton-ataque-planta')
-  botonAtaquePlanta.addEventListener('click', ataquePlanta)
+  //Aqui debe ir la selección dinámica de poderes
 
   let botonReiniciar = document.getElementById('boton-reiniciar')
   botonReiniciar.addEventListener('click', reiniciarJuego)
@@ -113,36 +115,60 @@ function seleccionarPokemon() {
   pokemonJugador = document.getElementById('pokemonJugador')
 
   if (inputCharizard.checked) {
-    pokemonJugador.innerHTML = 'Charizard' //Primeros pasos de manipulación del DOM
-    pokemonJugador = 'Charizard'
+    pokemonJugador.innerHTML = inputCharizard.name //Primeros pasos de manipulación del DOM
+    pokemonJugador = inputCharizard.name
   } else if (inputBlastoise.checked) {
-    pokemonJugador.innerHTML = 'Blastoise' //modifica el Span con id pokemonJugador
-    pokemonJugador = 'Blastoise'
+    pokemonJugador.innerHTML = inputBlastoise.name //modifica el Span con id pokemonJugador
+    pokemonJugador = inputBlastoise.name
   } else if (inputVenusaur.checked) {
-    pokemonJugador.innerHTML = 'Venusaur'
-    pokemonJugador = 'Venusaur'
+    pokemonJugador.innerHTML = inputVenusaur.name
+    pokemonJugador = inputVenusaur.name
   } else {
-    alert('Error en la seleccion')
+    alert('Error en la elección')
   }
+
+  extraerAtaques(pokemonJugador) //lee los ataques del pokemon elegido
 
   seleccionarPokemonEnemigo()
 }
 
-function seleccionarPokemonEnemigo() {
-  let pokemonAleatorio = aleatorio(1, 3)
-  pokemonEnemigo = document.getElementById('pokemonEnemigo')
-
-  if (pokemonAleatorio == 1) {
-    pokemonEnemigo.innerHTML = 'Charizard'
-    pokemonEnemigo = 'Charizard'
-  } else if (pokemonAleatorio == 2) {
-    pokemonEnemigo.innerHTML = 'Blastoise'
-    pokemonEnemigo = 'Blastoise'
-  } else if (pokemonAleatorio == 3) {
-    pokemonEnemigo.innerHTML = 'Venusaur'
-    pokemonEnemigo = 'Venusaur'
+function extraerAtaques(pokemonJugador){
+  let ataques 
+  for (let i = 0; i < pokemones.length; i++){
+    if (pokemonJugador === pokemones[i].nombre){
+      ataques = pokemones[i].ataques
+    }
   }
+  mostrarAtaques(ataques)
 }
+
+function mostrarAtaques(ataques){
+  let contenedorAtaques = document.getElementById('contenedorAtaques')
+  ataques.forEach((ataque) => {
+    ataquesPokemon = `
+     <button id=${ataque.id} class="boton-ataque">${ataque.nombre}</button>
+     `
+
+    contenedorAtaques.innerHTML += ataquesPokemon
+  })
+  
+  botonAtaqueFuego = document.getElementById('boton-ataque-fuego') 
+  botonAtaqueAgua = document.getElementById('boton-ataque-agua')
+  botonAtaquePlanta = document.getElementById('boton-ataque-planta')
+
+  botonAtaqueFuego.addEventListener('click', ataqueFuego)
+  botonAtaqueAgua.addEventListener('click', ataqueAgua)
+  botonAtaquePlanta.addEventListener('click', ataquePlanta)
+
+}
+
+function seleccionarPokemonEnemigo() {
+  let pokemonAleatorio = aleatorio(0, pokemones.length -1)
+  let spanPokemonEnemigo = document.getElementById('spanPokemonEnemigo')
+  spanPokemonEnemigo.innerHTML = pokemones[pokemonAleatorio].nombre
+  pokemonEnemigo = pokemones[pokemonAleatorio].nombre
+}
+
 
 function ataqueFuego() {
   ataqueJugador = 'FUEGO'
@@ -222,13 +248,8 @@ function crearMensajeFinal(resultadoFinal) {
 
   seccionMensajes.innerHTML = resultadoFinal
 
-  let botonAtaqueFuego = document.getElementById('boton-ataque-fuego') //encontramos el elemento cuando se emite el mensaje final
   botonAtaqueFuego.disabled = true //la propiedad del boton se cambia a disabled
-
-  let botonAtaqueAgua = document.getElementById('boton-ataque-agua')
   botonAtaqueAgua.disabled = true
-
-  let botonAtaquePlanta = document.getElementById('boton-ataque-planta')
   botonAtaquePlanta.disabled = true
 
   let activarSeccionReiniciar = document.getElementById('reiniciar')
