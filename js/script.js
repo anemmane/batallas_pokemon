@@ -1,7 +1,6 @@
 //variables de funcion
 
 // Variables GLOBALES
-let ataqueJugador
 let ataqueEnemigo
 let pokemonJugador
 let pokemonEnemigo
@@ -16,13 +15,15 @@ let inputCharizard
 let inputBlastoise
 let inputVenusaur
 
-let botonAtaqueFuego 
-let botonAtaqueAgua 
-let botonAtaquePlanta 
+let botonAtaqueFuego
+let botonAtaqueAgua
+let botonAtaquePlanta
 
 
 //arreglos
 let pokemones = []
+let botones = []
+let ataqueJugador = []
 
 //clases y objetos
 class Pokemon {
@@ -132,57 +133,60 @@ function seleccionarPokemon() {
   seleccionarPokemonEnemigo()
 }
 
-function extraerAtaques(pokemonJugador){
-  let ataques 
-  for (let i = 0; i < pokemones.length; i++){
-    if (pokemonJugador === pokemones[i].nombre){
+function extraerAtaques(pokemonJugador) {
+  let ataques
+  for (let i = 0; i < pokemones.length; i++) {
+    if (pokemonJugador === pokemones[i].nombre) {
       ataques = pokemones[i].ataques
     }
   }
   mostrarAtaques(ataques)
 }
 
-function mostrarAtaques(ataques){
+function mostrarAtaques(ataques) {
   let contenedorAtaques = document.getElementById('contenedorAtaques')
   ataques.forEach((ataque) => {
     ataquesPokemon = `
-     <button id=${ataque.id} class="boton-ataque">${ataque.nombre}</button>
+     <button id=${ataque.id} class="boton-ataque bAtaque">${ataque.nombre}</button>
      `
 
     contenedorAtaques.innerHTML += ataquesPokemon
   })
-  
-  botonAtaqueFuego = document.getElementById('boton-ataque-fuego') 
+
+  botonAtaqueFuego = document.getElementById('boton-ataque-fuego')
   botonAtaqueAgua = document.getElementById('boton-ataque-agua')
   botonAtaquePlanta = document.getElementById('boton-ataque-planta')
 
-  botonAtaqueFuego.addEventListener('click', ataqueFuego)
-  botonAtaqueAgua.addEventListener('click', ataqueAgua)
-  botonAtaquePlanta.addEventListener('click', ataquePlanta)
+  botones = document.querySelectorAll('.bAtaque')
+}
 
+function secuenciaAtaque() {
+  botones.forEach((boton) => {
+    boton.addEventListener('click', (e) => {
+      if (e.target.textContent === '🔥'){
+        ataqueJugador.push('FUEGO')
+        console.log(ataqueJugador)
+        boton.style.background = '#111f58'
+      } else if (e.target.textContent === '💧'){
+        ataqueJugador.push('AGUA')
+        console.log(ataqueJugador)
+        boton.style.background = '#111f58'
+      } else {
+        ataqueJugador.push('PLANTA')
+        console.log(ataqueJugador)
+        boton.style.background = '#111f58'
+      }
+    })
+  })
 }
 
 function seleccionarPokemonEnemigo() {
-  let pokemonAleatorio = aleatorio(0, pokemones.length -1)
+  let pokemonAleatorio = aleatorio(0, pokemones.length - 1)
   let spanPokemonEnemigo = document.getElementById('spanPokemonEnemigo')
   spanPokemonEnemigo.innerHTML = pokemones[pokemonAleatorio].nombre
   pokemonEnemigo = pokemones[pokemonAleatorio].nombre
-}
 
-
-function ataqueFuego() {
-  ataqueJugador = 'FUEGO'
-  ataqueEnemigoAccion()
-}
-
-function ataqueAgua() {
-  ataqueJugador = 'AGUA'
-  ataqueEnemigoAccion()
-}
-
-function ataquePlanta() {
-  ataqueJugador = 'PLANTA'
-  ataqueEnemigoAccion()
+  secuenciaAtaque()
 }
 
 function ataqueEnemigoAccion() {
