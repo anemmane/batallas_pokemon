@@ -1,15 +1,15 @@
 //variables de funcion
 
 // Variables GLOBALES
-let ataqueEnemigo
 let pokemonJugador
 let pokemonEnemigo
-let contadorJugador = 3
-let contadorEnemigo = 3
+let contadorJugador = 0
+let contadorEnemigo = 0
 let opcionDePokemones
 let opcionDeAtaques
 
 let ataquesPokemon
+let ataqueEnemigoLista
 
 let inputCharizard
 let inputBlastoise
@@ -19,11 +19,14 @@ let botonAtaqueFuego
 let botonAtaqueAgua
 let botonAtaquePlanta
 
+let indexAtaqueJugador
+let indexAtaqueEnemigo
 
 //arreglos
 let pokemones = []
 let botones = []
 let ataqueJugador = []
+let ataqueEnemigo = []
 
 //clases y objetos
 class Pokemon {
@@ -36,8 +39,8 @@ class Pokemon {
 }
 
 let charizard = new Pokemon('Charizard', 'https://i.postimg.cc/8sHpDj40/char.png', 5)
-let blastoise = new Pokemon('Blastoise', 'https://i.postimg.cc/30K3mT81/blas.png', 5)
 let venusaur = new Pokemon('Venusaur', 'https://i.postimg.cc/c6ZxVQR3/venu.png', 5)
+let blastoise = new Pokemon('Blastoise', 'https://i.postimg.cc/30K3mT81/blas.png', 5)
 
 charizard.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
   { nombre: '🔥', id: 'boton-ataque-fuego' },
@@ -62,7 +65,6 @@ venusaur.ataques.push( //insertamos objetos literales en el atributo ataques del
   { nombre: '💧', id: 'boton-ataque-agua' },
   { nombre: '🔥', id: 'boton-ataque-fuego' },
 )
-
 pokemones.push(charizard, blastoise, venusaur)
 
 
@@ -74,6 +76,7 @@ function iniciarJuego() {
   activarSeccionAtaque.style.display = 'none'
 
   let activarSeccionReiniciar = document.getElementById('reiniciar')
+
   activarSeccionReiniciar.style.display = 'none'
   //accion para escuchar el boton de elegir pokemon. Primero creamos la variable    y le decimos que encuentre dentro del documento el elemento con determinado ID
 
@@ -154,8 +157,8 @@ function mostrarAtaques(ataques) {
   })
 
   botonAtaqueFuego = document.getElementById('boton-ataque-fuego')
-  botonAtaqueAgua = document.getElementById('boton-ataque-agua')
   botonAtaquePlanta = document.getElementById('boton-ataque-planta')
+  botonAtaqueAgua = document.getElementById('boton-ataque-agua')
 
   botones = document.querySelectorAll('.bAtaque')
 }
@@ -163,11 +166,11 @@ function mostrarAtaques(ataques) {
 function secuenciaAtaque() {
   botones.forEach((boton) => {
     boton.addEventListener('click', (e) => {
-      if (e.target.textContent === '🔥'){
+      if (e.target.textContent === '🔥') {
         ataqueJugador.push('FUEGO')
         console.log(ataqueJugador)
         boton.style.background = '#111f58'
-      } else if (e.target.textContent === '💧'){
+      } else if (e.target.textContent === '💧') {
         ataqueJugador.push('AGUA')
         console.log(ataqueJugador)
         boton.style.background = '#111f58'
@@ -176,8 +179,10 @@ function secuenciaAtaque() {
         console.log(ataqueJugador)
         boton.style.background = '#111f58'
       }
+      ataqueEnemigoAccion()
     })
   })
+
 }
 
 function seleccionarPokemonEnemigo() {
@@ -186,47 +191,67 @@ function seleccionarPokemonEnemigo() {
   spanPokemonEnemigo.innerHTML = pokemones[pokemonAleatorio].nombre
   pokemonEnemigo = pokemones[pokemonAleatorio].nombre
 
+  ataqueEnemigoLista = pokemones[pokemonAleatorio].ataques
+
   secuenciaAtaque()
 }
 
 function ataqueEnemigoAccion() {
-  let ataqueAleatorio = aleatorio(1, 3)
+  let ataqueAleatorio = aleatorio(0, ataqueEnemigoLista.length - 1)
 
-  if (ataqueAleatorio == 1) {
-    ataqueEnemigo = 'FUEGO'
-  } else if (ataqueAleatorio == 2) {
-    ataqueEnemigo = 'AGUA'
+  if (ataqueAleatorio == 1 || ataqueAleatorio == 0) {
+    ataqueEnemigo.push('FUEGO')
+  } else if (ataqueAleatorio == 2 || ataqueAleatorio == 4) {
+    ataqueEnemigo.push('AGUA')
   } else if (ataqueAleatorio == 3) {
-    ataqueEnemigo = 'PLANTA'
+    ataqueEnemigo.push('PLANTA')
   }
-  resultadoCombate()
+  console.log(ataqueEnemigo)
+  iniciarPelea()
 }
 
+function iniciarPelea() {
+  if (ataqueJugador.length === 5) {
+    resultadoCombate()
+  }
+}
+
+function indexAmbosOponentes(jugador, enemigo) {
+  indexAtaqueJugador = ataqueJugador[jugador]
+  indexAtaqueEnemigo = ataqueEnemigo[enemigo]
+}
 
 function resultadoCombate() {
   let spanVidasJugador = document.getElementById('vidas-jugador')
   let spanVidasEnemigo = document.getElementById('vidas-enemigo')
 
-
-  if (ataqueJugador == ataqueEnemigo) {
-    crearMensajeAtaques('Empate')
-  } else if ((ataqueJugador == 'FUEGO' && ataqueEnemigo == 'PLANTA') || (ataqueJugador == 'AGUA' && ataqueEnemigo == 'FUEGO') || (ataqueJugador == 'PLANTA' && ataqueEnemigo == 'AGUA')) {
-    crearMensajeAtaques('Ganaste')
-    contadorEnemigo = contadorEnemigo - 1
-    spanVidasEnemigo.innerHTML = contadorEnemigo
-  } else {
-    crearMensajeAtaques('Perdiste')
-    contadorJugador = contadorJugador - 1
-    spanVidasJugador.innerHTML = contadorJugador
+  for (let index = 0; index < ataqueJugador.length; index++) {
+    if (ataqueJugador[index] === ataqueEnemigo[index]) {
+      indexAmbosOponentes(index, index)
+      crearMensajeAtaques('Empate')
+    } else if ((ataqueJugador[index] == 'FUEGO' && ataqueEnemigo[index] == 'PLANTA') || (ataqueJugador[index] == 'AGUA' && ataqueEnemigo[index] == 'FUEGO') || (ataqueJugador[index] == 'PLANTA' && ataqueEnemigo[index] == 'AGUA')) {
+      indexAmbosOponentes(index, index)
+      crearMensajeAtaques('Ganaste')
+      contadorJugador++
+      spanVidasJugador.innerHTML = contadorJugador
+    } else {
+      indexAmbosOponentes(index, index)
+      crearMensajeAtaques('Perdiste')
+      contadorEnemigo++
+      spanVidasEnemigo.innerHTML = contadorEnemigo
+    }
   }
+
 
   contadorVidas()
 }
 
 function contadorVidas() {
-  if (contadorEnemigo == 0) {
+  if (contadorEnemigo === contadorJugador) {
+    crearMensajeFinal('Es un empate')
+  } else if (contadorJugador > contadorEnemigo) {
     crearMensajeFinal('El enemigo se ha debilitado. Ganaste la partida')
-  } else if (contadorJugador == 0) {
+  } else if (contadorJugador < contadorEnemigo) {
     crearMensajeFinal('Has sido debilitado. Perdiste la partida')
   }
 }
@@ -240,8 +265,8 @@ function crearMensajeAtaques(resultadoAtaque) {
   let nuevoAtaqueEnemigo = document.createElement('p')
 
   seccionMensajes.innerHTML = resultadoAtaque
-  nuevoAtaqueJugador.innerHTML = pokemonJugador + ' atacó con ' + ataqueJugador
-  nuevoAtaqueEnemigo.innerHTML = pokemonEnemigo + ' atacó con ' + ataqueEnemigo
+  nuevoAtaqueJugador.innerHTML = pokemonJugador + ' atacó con ' + indexAtaqueJugador
+  nuevoAtaqueEnemigo.innerHTML = pokemonEnemigo + ' atacó con ' + indexAtaqueEnemigo
 
   ataquesDelJugador.appendChild(nuevoAtaqueJugador) //integra el elemento creado en la sección elegida por ID
   ataquesDelEnemigo.appendChild(nuevoAtaqueEnemigo)
