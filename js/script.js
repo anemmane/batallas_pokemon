@@ -35,6 +35,12 @@ class Pokemon {
     this.foto = foto
     this.vida = vida
     this.ataques = []
+    this.x = 20
+    this.y = 30
+    this.ancho = 80
+    this.alto = 80
+    this.mapaFoto = new Image()
+    this.mapaFoto.src = foto
   }
 }
 
@@ -83,7 +89,7 @@ function iniciarJuego() {
   activarSeccionMapa.style.display = 'none'
 
 
-  
+
   //accion para escuchar el boton de elegir pokemon. Primero creamos la variable    y le decimos que encuentre dentro del documento el elemento con determinado ID
 
   let contenedorTarjetas = document.getElementById('contenedorTarjetas')
@@ -126,17 +132,6 @@ function seleccionarPokemon() {
   activarSeccionMapa.style.display = 'flex'
 
   let mapa = document.getElementById('mapa')
-
-  let imagenCharizard = new Image()
-  imagenCharizard.src = charizard.foto
-
-  let lienzo = mapa.getContext("2d")
-  lienzo.drawImage
-    (imagenCharizard, 
-     5, 
-     15, 
-     80, 
-     80)
 
   pokemonJugador = document.getElementById('pokemonJugador')
 
@@ -315,6 +310,43 @@ function reiniciarJuego() {
 
 function aleatorio(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function pintarPokemon() {
+  let mapa = document.getElementById('mapa')
+  let lienzo = mapa.getContext("2d")
+  lienzo.clearRect(0, 0, mapa.width, mapa.height)
+  lienzo.drawImage
+    (charizard.mapaFoto,
+      charizard.x,
+      charizard.y,
+      charizard.ancho,
+      charizard.alto)
+}
+
+function moverPokemon() {
+  charizard.x = charizard.x + 5
+  pintarPokemon()
+}
+
+function moverDerecha() {
+  charizard.x = charizard.x + 5
+  pintarPokemon()
+}
+
+function moverIzquierda() {
+  charizard.x = charizard.x - 5
+  pintarPokemon()
+}
+
+function moverAbajo() {
+  charizard.y = charizard.y + 5
+  pintarPokemon()
+}
+
+function moverArriba() {
+  charizard.y = charizard.y - 5
+  pintarPokemon()
 }
 
 
