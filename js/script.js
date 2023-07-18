@@ -78,6 +78,12 @@ function iniciarJuego() {
   let activarSeccionReiniciar = document.getElementById('reiniciar')
 
   activarSeccionReiniciar.style.display = 'none'
+
+  let activarSeccionMapa = document.getElementById('ver-mapa')
+  activarSeccionMapa.style.display = 'none'
+
+
+  
   //accion para escuchar el boton de elegir pokemon. Primero creamos la variable    y le decimos que encuentre dentro del documento el elemento con determinado ID
 
   let contenedorTarjetas = document.getElementById('contenedorTarjetas')
@@ -114,7 +120,23 @@ function seleccionarPokemon() {
   activarSeccionPokemon.style.display = 'none'
 
   let activarSeccionAtaque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
-  activarSeccionAtaque.style.display = 'flex'
+  activarSeccionAtaque.style.display = 'none' //cambiar a flex cuando dejemos de ver el mapa
+
+  let activarSeccionMapa = document.getElementById('ver-mapa')
+  activarSeccionMapa.style.display = 'flex'
+
+  let mapa = document.getElementById('mapa')
+
+  let imagenCharizard = new Image()
+  imagenCharizard.src = charizard.foto
+
+  let lienzo = mapa.getContext("2d")
+  lienzo.drawImage
+    (imagenCharizard, 
+     5, 
+     15, 
+     80, 
+     80)
 
   pokemonJugador = document.getElementById('pokemonJugador')
 
