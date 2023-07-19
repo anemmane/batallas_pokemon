@@ -135,6 +135,9 @@ function seleccionarPokemon() {
 
   let intervalo = setInterval(pintarPokemon, 50)
 
+  window.addEventListener('keydown', controlConTeclado)
+  window.addEventListener('keyup', detenerMovimiento)
+
   let mapa = document.getElementById('mapa')
 
   pokemonJugador = document.getElementById('pokemonJugador')
@@ -357,6 +360,25 @@ function moverArriba() {
 function detenerMovimiento() {
   charizard.velocidadX = 0
   charizard.velocidadY = 0
+}
+
+function controlConTeclado(event){ //como se utiliza con eventlistener, se debe poner el valor event
+  switch (event.key){
+    case 'ArrowUp':
+      moverArriba()
+      break
+    case 'ArrowDown':
+      moverAbajo()
+      break
+    case 'ArrowLeft':
+      moverIzquierda()
+      break
+    case 'ArrowRight':
+      moverDerecha()
+      break
+    default:
+      break
+  }
 }
 
 
