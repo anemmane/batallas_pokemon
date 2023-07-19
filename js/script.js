@@ -41,6 +41,8 @@ class Pokemon {
     this.alto = 80
     this.mapaFoto = new Image()
     this.mapaFoto.src = foto
+    this.velocidadX = 0
+    this.velocidadY = 0
   }
 }
 
@@ -130,6 +132,8 @@ function seleccionarPokemon() {
 
   let activarSeccionMapa = document.getElementById('ver-mapa')
   activarSeccionMapa.style.display = 'flex'
+
+  let intervalo = setInterval(pintarPokemon, 50)
 
   let mapa = document.getElementById('mapa')
 
@@ -315,6 +319,10 @@ function aleatorio(min, max) {
 function pintarPokemon() {
   let mapa = document.getElementById('mapa')
   let lienzo = mapa.getContext("2d")
+
+  charizard.x = charizard.x + charizard.velocidadX
+  charizard.y = charizard.y + charizard.velocidadY
+
   lienzo.clearRect(0, 0, mapa.width, mapa.height)
   lienzo.drawImage
     (charizard.mapaFoto,
@@ -330,23 +338,25 @@ function moverPokemon() {
 }
 
 function moverDerecha() {
-  charizard.x = charizard.x + 5
-  pintarPokemon()
+  charizard.velocidadX = 5
 }
 
 function moverIzquierda() {
-  charizard.x = charizard.x - 5
-  pintarPokemon()
+  charizard.velocidadX = - 5
+
 }
 
 function moverAbajo() {
-  charizard.y = charizard.y + 5
-  pintarPokemon()
+  charizard.velocidadY = + 5
 }
 
 function moverArriba() {
-  charizard.y = charizard.y - 5
-  pintarPokemon()
+  charizard.velocidadY = - 5
+}
+
+function detenerMovimiento() {
+  charizard.velocidadX = 0
+  charizard.velocidadY = 0
 }
 
 
