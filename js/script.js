@@ -133,10 +133,7 @@ function seleccionarPokemon() {
   let activarSeccionMapa = document.getElementById('ver-mapa')
   activarSeccionMapa.style.display = 'flex'
 
-  let intervalo = setInterval(pintarPokemon, 50)
-
-  window.addEventListener('keydown', controlConTeclado)
-  window.addEventListener('keyup', detenerMovimiento)
+  iniciarMapa()
 
   let mapa = document.getElementById('mapa')
 
@@ -323,12 +320,22 @@ function pintarPokemon() {
   let mapa = document.getElementById('mapa')
   let lienzo = mapa.getContext("2d")
 
+  let mapaBackground = new Image()
+  mapaBackground.src = 'https://i.postimg.cc/Xqgv0QSj/map.png'
+
   charizard.x = charizard.x + charizard.velocidadX
   charizard.y = charizard.y + charizard.velocidadY
 
   lienzo.clearRect(0, 0, mapa.width, mapa.height)
-  lienzo.drawImage
-    (charizard.mapaFoto,
+  lienzo.drawImage(
+    mapaBackground,
+    0,
+    0,
+    mapa.width,
+    mapa.height
+  )
+  lienzo.drawImage( 
+      charizard.mapaFoto,
       charizard.x,
       charizard.y,
       charizard.ancho,
@@ -362,8 +369,8 @@ function detenerMovimiento() {
   charizard.velocidadY = 0
 }
 
-function controlConTeclado(event){ //como se utiliza con eventlistener, se debe poner el valor event
-  switch (event.key){
+function controlConTeclado(event) { //como se utiliza con eventlistener, se debe poner el valor event
+  switch (event.key) {
     case 'ArrowUp':
       moverArriba()
       break
@@ -379,6 +386,16 @@ function controlConTeclado(event){ //como se utiliza con eventlistener, se debe 
     default:
       break
   }
+}
+
+function iniciarMapa() {
+  mapa.width = 800
+  mapa.height = 600
+
+  let intervalo = setInterval(pintarPokemon, 50)
+
+  window.addEventListener('keydown', controlConTeclado)
+  window.addEventListener('keyup', detenerMovimiento)
 }
 
 
