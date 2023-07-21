@@ -31,25 +31,40 @@ let ataqueEnemigo = []
 
 //clases y objetos
 class Pokemon {
-  constructor(nombre, foto, vida) {
+  constructor(nombre, foto, vida, fotoMapa, x = 10, y = 10) { //se puede asignar un valor inicial y lo toma en caso de que no se asigne otro mas adelante
     this.nombre = nombre
     this.foto = foto
     this.vida = vida
     this.ataques = []
-    this.x = 20
-    this.y = 30
+    this.x = x
+    this.y = y
     this.ancho = 80
     this.alto = 80
     this.mapaFoto = new Image()
-    this.mapaFoto.src = foto
+    this.mapaFoto.src = fotoMapa
     this.velocidadX = 0
     this.velocidadY = 0
   }
+
+  pintarPokemon(){ //llamamos a un metodo, que es una funcion dentro de una clase
+      let lienzo = mapa.getContext("2d")
+      lienzo.drawImage( 
+        this.mapaFoto,
+        this.x,
+        this.y,
+        this.ancho,
+        this.alto
+  )
+  }
 }
 
-let charizard = new Pokemon('Charizard', 'https://i.postimg.cc/8sHpDj40/char.png', 5)
-let venusaur = new Pokemon('Venusaur', 'https://i.postimg.cc/c6ZxVQR3/venu.png', 5)
-let blastoise = new Pokemon('Blastoise', 'https://i.postimg.cc/30K3mT81/blas.png', 5)
+let charizard = new Pokemon('Charizard', 'https://i.postimg.cc/8sHpDj40/char.png', 5, 'https://i.postimg.cc/Th86HxzF/char-avatar.png')
+let venusaur = new Pokemon('Venusaur', 'https://i.postimg.cc/c6ZxVQR3/venu.png', 5, 'https://i.postimg.cc/3N0hBNc2/venu-avatar.png')
+let blastoise = new Pokemon('Blastoise', 'https://i.postimg.cc/30K3mT81/blas.png', 5, 'https://i.postimg.cc/xCCnXtGx/blas-avatar.png')
+
+let charizardEnemigo = new Pokemon('Charizard', 'https://i.postimg.cc/8sHpDj40/char.png', 5, 'https://i.postimg.cc/Th86HxzF/char-avatar.png', 600, 145)
+let venusaurEnemigo = new Pokemon('Venusaur', 'https://i.postimg.cc/c6ZxVQR3/venu.png', 5, 'https://i.postimg.cc/3N0hBNc2/venu-avatar.png', 345, 500)
+let blastoiseEnemigo = new Pokemon('Blastoise', 'https://i.postimg.cc/30K3mT81/blas.png', 5, 'https://i.postimg.cc/xCCnXtGx/blas-avatar.png', 109, 305)
 
 charizard.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
   { nombre: '🔥', id: 'boton-ataque-fuego' },
@@ -335,12 +350,10 @@ function pintarPokemon() {
     mapa.width,
     mapa.height
   )
-  lienzo.drawImage( 
-      pokemonJugadorObjeto.mapaFoto,
-      pokemonJugadorObjeto.x,
-      pokemonJugadorObjeto.y,
-      pokemonJugadorObjeto.ancho,
-      pokemonJugadorObjeto.alto)
+  pokemonJugadorObjeto.pintarPokemon()
+  charizardEnemigo.pintarPokemon()
+  blastoiseEnemigo.pintarPokemon()
+  venusaurEnemigo.pintarPokemon()
 }
 
 function moverPokemon() {
