@@ -2,6 +2,7 @@
 
 // Variables GLOBALES
 let pokemonJugador
+let pokemonJugadorObjeto
 let pokemonEnemigo
 let contadorJugador = 0
 let contadorEnemigo = 0
@@ -130,10 +131,6 @@ function seleccionarPokemon() {
   let activarSeccionAtaque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
   activarSeccionAtaque.style.display = 'none' //cambiar a flex cuando dejemos de ver el mapa
 
-  let activarSeccionMapa = document.getElementById('ver-mapa')
-  activarSeccionMapa.style.display = 'flex'
-
-  iniciarMapa()
 
   let mapa = document.getElementById('mapa')
 
@@ -151,6 +148,10 @@ function seleccionarPokemon() {
   } else {
     alert('Error en la elección')
   }
+
+  let activarSeccionMapa = document.getElementById('ver-mapa')
+  activarSeccionMapa.style.display = 'flex'
+  iniciarMapa() //iniciamos el mapa después de que se seleccione la mascota
 
   extraerAtaques(pokemonJugador) //lee los ataques del pokemon elegido
 
@@ -323,8 +324,8 @@ function pintarPokemon() {
   let mapaBackground = new Image()
   mapaBackground.src = 'https://i.postimg.cc/Xqgv0QSj/map.png'
 
-  charizard.x = charizard.x + charizard.velocidadX
-  charizard.y = charizard.y + charizard.velocidadY
+  pokemonJugadorObjeto.x = pokemonJugadorObjeto.x + pokemonJugadorObjeto.velocidadX
+  pokemonJugadorObjeto.y = pokemonJugadorObjeto.y + pokemonJugadorObjeto.velocidadY
 
   lienzo.clearRect(0, 0, mapa.width, mapa.height)
   lienzo.drawImage(
@@ -335,38 +336,38 @@ function pintarPokemon() {
     mapa.height
   )
   lienzo.drawImage( 
-      charizard.mapaFoto,
-      charizard.x,
-      charizard.y,
-      charizard.ancho,
-      charizard.alto)
+      pokemonJugadorObjeto.mapaFoto,
+      pokemonJugadorObjeto.x,
+      pokemonJugadorObjeto.y,
+      pokemonJugadorObjeto.ancho,
+      pokemonJugadorObjeto.alto)
 }
 
 function moverPokemon() {
-  charizard.x = charizard.x + 5
+  pokemonJugadorObjeto.x = pokemonJugadorObjeto.x + 5
   pintarPokemon()
 }
 
 function moverDerecha() {
-  charizard.velocidadX = 5
+  pokemonJugadorObjeto.velocidadX = 5
 }
 
 function moverIzquierda() {
-  charizard.velocidadX = - 5
+  pokemonJugadorObjeto.velocidadX = - 5
 
 }
 
 function moverAbajo() {
-  charizard.velocidadY = + 5
+  pokemonJugadorObjeto.velocidadY = + 5
 }
 
 function moverArriba() {
-  charizard.velocidadY = - 5
+  pokemonJugadorObjeto.velocidadY = - 5
 }
 
 function detenerMovimiento() {
-  charizard.velocidadX = 0
-  charizard.velocidadY = 0
+  pokemonJugadorObjeto.velocidadX = 0
+  pokemonJugadorObjeto.velocidadY = 0
 }
 
 function controlConTeclado(event) { //como se utiliza con eventlistener, se debe poner el valor event
@@ -389,6 +390,9 @@ function controlConTeclado(event) { //como se utiliza con eventlistener, se debe
 }
 
 function iniciarMapa() {
+
+  pokemonJugadorObjeto = obtenerImagenPokemon(pokemonJugador)
+
   mapa.width = 800
   mapa.height = 600
 
@@ -397,6 +401,15 @@ function iniciarMapa() {
   window.addEventListener('keydown', controlConTeclado)
   window.addEventListener('keyup', detenerMovimiento)
 }
+
+function obtenerImagenPokemon() {
+  for (let i = 0; i < pokemones.length; i++) {
+    if (pokemonJugador === pokemones[i].nombre) {
+      return pokemones[i]
+    }
+  }
+}
+
 
 
 window.addEventListener('load', iniciarJuego) // permite cargar el código a ejecutar cuando cargue todo el HTML
