@@ -354,6 +354,12 @@ function pintarPokemon() {
   charizardEnemigo.pintarPokemon()
   blastoiseEnemigo.pintarPokemon()
   venusaurEnemigo.pintarPokemon()
+
+  if (pokemonJugadorObjeto.velocidadX != 0 || pokemonJugadorObjeto.velocidadY != 0){
+    revisarColision(charizardEnemigo)
+    revisarColision(blastoiseEnemigo)
+    revisarColision(venusaurEnemigo)
+  }
 }
 
 function moverPokemon() {
@@ -420,6 +426,31 @@ function obtenerImagenPokemon() {
     if (pokemonJugador === pokemones[i].nombre) {
       return pokemones[i]
     }
+  }
+}
+
+function revisarColision(enemigo){
+  const arribaEnemigo = enemigo.y
+  const abajoEnemigo = enemigo.y + enemigo.alto
+  const derechaEnemigo = enemigo.x + enemigo.ancho
+  const izquierdaEnemigo = enemigo.x
+
+  const arribaPokemon = pokemonJugadorObjeto.y
+  const abajoPokemon = pokemonJugadorObjeto.y + pokemonJugadorObjeto.alto
+  const derechaPokemon = pokemonJugadorObjeto.x + pokemonJugadorObjeto.ancho
+  const izquierdaPokemon = pokemonJugadorObjeto.x
+  
+  if(
+    abajoPokemon < arribaEnemigo ||
+    arribaPokemon > abajoEnemigo ||
+    derechaPokemon < izquierdaEnemigo ||
+    izquierdaPokemon > derechaEnemigo
+  ) {
+    return //return vacio porque no se cumple la condicion
+    
+  } else {
+    detenerMovimiento()
+    alert(enemigo.nombre + " slavaje ha aparecido")
   }
 }
 
