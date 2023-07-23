@@ -46,15 +46,15 @@ class Pokemon {
     this.velocidadY = 0
   }
 
-  pintarPokemon(){ //llamamos a un metodo, que es una funcion dentro de una clase
-      let lienzo = mapa.getContext("2d")
-      lienzo.drawImage( 
-        this.mapaFoto,
-        this.x,
-        this.y,
-        this.ancho,
-        this.alto
-  )
+  pintarPokemon() { //llamamos a un metodo, que es una funcion dentro de una clase
+    let lienzo = mapa.getContext("2d")
+    lienzo.drawImage(
+      this.mapaFoto,
+      this.x,
+      this.y,
+      this.ancho,
+      this.alto
+    )
   }
 }
 
@@ -83,6 +83,30 @@ blastoise.ataques.push( //insertamos objetos literales en el atributo ataques de
 )
 
 venusaur.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
+  { nombre: '🌱', id: 'boton-ataque-planta' },
+  { nombre: '🌱', id: 'boton-ataque-planta' },
+  { nombre: '🌱', id: 'boton-ataque-planta' },
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+)
+
+charizardEnemigo.ataques.push( //insertamos objetos literales en el atributo ataques del objeto charizard
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '🌱', id: 'boton-ataque-planta' },
+)
+
+blastoiseEnemigo.ataques.push( //insertamos objetos literales en el atributo ataques del objeto blastoise
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '💧', id: 'boton-ataque-agua' },
+  { nombre: '🔥', id: 'boton-ataque-fuego' },
+  { nombre: '🌱', id: 'boton-ataque-planta' },
+)
+
+venusaurEnemigo.ataques.push( //insertamos objetos literales en el atributo ataques del objeto venusaur
   { nombre: '🌱', id: 'boton-ataque-planta' },
   { nombre: '🌱', id: 'boton-ataque-planta' },
   { nombre: '🌱', id: 'boton-ataque-planta' },
@@ -143,10 +167,6 @@ function seleccionarPokemon() {
   let activarSeccionPokemon = document.getElementById('eligePokemon')
   activarSeccionPokemon.style.display = 'none'
 
-  let activarSeccionAtaque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
-  activarSeccionAtaque.style.display = 'none' //cambiar a flex cuando dejemos de ver el mapa
-
-
   let mapa = document.getElementById('mapa')
 
   pokemonJugador = document.getElementById('pokemonJugador')
@@ -155,6 +175,7 @@ function seleccionarPokemon() {
     pokemonJugador.innerHTML = inputCharizard.name //Primeros pasos de manipulación del DOM
     pokemonJugador = inputCharizard.name
   } else if (inputBlastoise.checked) {
+
     pokemonJugador.innerHTML = inputBlastoise.name //modifica el Span con id pokemonJugador
     pokemonJugador = inputBlastoise.name
   } else if (inputVenusaur.checked) {
@@ -169,8 +190,6 @@ function seleccionarPokemon() {
   iniciarMapa() //iniciamos el mapa después de que se seleccione la mascota
 
   extraerAtaques(pokemonJugador) //lee los ataques del pokemon elegido
-
-  seleccionarPokemonEnemigo()
 }
 
 function extraerAtaques(pokemonJugador) {
@@ -178,11 +197,11 @@ function extraerAtaques(pokemonJugador) {
   for (let i = 0; i < pokemones.length; i++) {
     if (pokemonJugador === pokemones[i].nombre) {
       ataques = pokemones[i].ataques
+
     }
   }
   mostrarAtaques(ataques)
 }
-
 function mostrarAtaques(ataques) {
   let contenedorAtaques = document.getElementById('contenedorAtaques')
   ataques.forEach((ataque) => {
@@ -222,18 +241,19 @@ function secuenciaAtaque() {
 
 }
 
-function seleccionarPokemonEnemigo() {
-  let pokemonAleatorio = aleatorio(0, pokemones.length - 1)
+function seleccionarPokemonEnemigo(enemigo) {
+  //let pokemonAleatorio = aleatorio(0, pokemones.length - 1)
   let spanPokemonEnemigo = document.getElementById('spanPokemonEnemigo')
-  spanPokemonEnemigo.innerHTML = pokemones[pokemonAleatorio].nombre
-  pokemonEnemigo = pokemones[pokemonAleatorio].nombre
+  spanPokemonEnemigo.innerHTML = enemigo.nombre
+  pokemonEnemigo = enemigo.nombre
 
-  ataqueEnemigoLista = pokemones[pokemonAleatorio].ataques
+  ataqueEnemigoLista = enemigo.ataques
 
   secuenciaAtaque()
 }
 
 function ataqueEnemigoAccion() {
+  console.log ("ataque enemigo", ataqueEnemigo)
   let ataqueAleatorio = aleatorio(0, ataqueEnemigoLista.length - 1)
 
   if (ataqueAleatorio == 1 || ataqueAleatorio == 0) {
@@ -355,7 +375,7 @@ function pintarPokemon() {
   blastoiseEnemigo.pintarPokemon()
   venusaurEnemigo.pintarPokemon()
 
-  if (pokemonJugadorObjeto.velocidadX != 0 || pokemonJugadorObjeto.velocidadY != 0){
+  if (pokemonJugadorObjeto.velocidadX != 0 || pokemonJugadorObjeto.velocidadY != 0) {
     revisarColision(charizardEnemigo)
     revisarColision(blastoiseEnemigo)
     revisarColision(venusaurEnemigo)
@@ -429,7 +449,7 @@ function obtenerImagenPokemon() {
   }
 }
 
-function revisarColision(enemigo){
+function revisarColision(enemigo) {
   const arribaEnemigo = enemigo.y
   const abajoEnemigo = enemigo.y + enemigo.alto
   const derechaEnemigo = enemigo.x + enemigo.ancho
@@ -439,18 +459,30 @@ function revisarColision(enemigo){
   const abajoPokemon = pokemonJugadorObjeto.y + pokemonJugadorObjeto.alto
   const derechaPokemon = pokemonJugadorObjeto.x + pokemonJugadorObjeto.ancho
   const izquierdaPokemon = pokemonJugadorObjeto.x
-  
-  if(
+
+  if (
     abajoPokemon < arribaEnemigo ||
     arribaPokemon > abajoEnemigo ||
     derechaPokemon < izquierdaEnemigo ||
     izquierdaPokemon > derechaEnemigo
   ) {
     return //return vacio porque no se cumple la condicion
-    
+
   } else {
     detenerMovimiento()
-    alert(enemigo.nombre + " slavaje ha aparecido")
+    console.log("se detecto una colisión")
+
+    let intervalo = setInterval(pintarPokemon, 50)
+    clearInterval(intervalo) //Detenemos las colisiones y el intervalo del movimiento
+
+    let activarSeccionAtaque = document.getElementById('eligeAtaque') //activamos el elemento hasta que se haya elegido un pokemon
+    activarSeccionAtaque.style.display = 'flex'
+
+    let activarSeccionMapa = document.getElementById('ver-mapa')
+    activarSeccionMapa.style.display = 'none'
+
+    seleccionarPokemonEnemigo(enemigo)
+    //alert(enemigo.nombre + " salvaje ha aparecido")
   }
 }
 
