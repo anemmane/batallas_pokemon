@@ -36,10 +36,10 @@ class Pokemon {
     this.foto = foto
     this.vida = vida
     this.ataques = []
-    this.x = x
-    this.y = y
     this.ancho = 80
     this.alto = 80
+    this.x = aleatorio(0, 800 - this.ancho) // se crean numeros aleatorios desde 0 hasta el ancho del mapa menos el ancho del pokemon
+    this.y = aleatorio(0, 600 - this.alto)
     this.mapaFoto = new Image()
     this.mapaFoto.src = fotoMapa
     this.velocidadX = 0
@@ -432,8 +432,13 @@ function iniciarMapa() {
 
   pokemonJugadorObjeto = obtenerImagenPokemon(pokemonJugador)
 
-  mapa.width = 800
-  mapa.height = 600
+  let alturaQueBuscamos
+  let anchoDelMapa = window.innerWidth - 20
+
+  alturaQueBuscamos = anchoDelMapa * 600 / 800
+
+  mapa.width = anchoDelMapa
+  mapa.height = alturaQueBuscamos
 
   let intervalo = setInterval(pintarPokemon, 50)
 
