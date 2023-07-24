@@ -7,6 +7,7 @@
 
   <script src="js/script.js"></script>
   <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 </head>
 
@@ -24,12 +25,15 @@
   </section>
 
   <section id="ver-mapa">
-    <h1 class="titulo">Recorre el mundo Pokemon</h1>
+    <h2 class="subtitulo">Recorre el mundo Pokemon</h2>
     <canvas id="mapa"></canvas>
     <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button>
-    <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button>
-    <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Derecha</button>
-    <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button>
+    <div>
+      <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button>
+      <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Derecha</button>
+      <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button>
+    </div>
+
 
   </section>
 
