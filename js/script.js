@@ -22,6 +22,7 @@ let botonAtaquePlanta
 
 let indexAtaqueJugador
 let indexAtaqueEnemigo
+let jugadorId = null
 
 //arreglos
 let pokemones = []
@@ -160,6 +161,22 @@ function iniciarJuego() {
 
   let botonReiniciar = document.getElementById('boton-reiniciar')
   botonReiniciar.addEventListener('click', reiniciarJuego)
+
+  unirseAlJuego()
+}
+
+function unirseAlJuego() {
+  fetch("https://pokemon.anemmane.repl.co/unirse") //peticion asincrona
+    .then(function(res) {
+      if (res.ok) {
+        res.text()
+          .then(function(respuesta) {
+            console.log(respuesta)
+            jugadorId = respuesta
+          })
+      }
+    })
+
 }
 
 function seleccionarPokemon() {
@@ -253,7 +270,7 @@ function seleccionarPokemonEnemigo(enemigo) {
 }
 
 function ataqueEnemigoAccion() {
-  console.log ("ataque enemigo", ataqueEnemigo)
+  console.log("ataque enemigo", ataqueEnemigo)
   let ataqueAleatorio = aleatorio(0, ataqueEnemigoLista.length - 1)
 
   if (ataqueAleatorio == 1 || ataqueAleatorio == 0) {
